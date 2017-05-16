@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+ {% block content %}
+    {% for result in results.tracks.items %}
+      {% if forloop.counter0|divisibleby:2 %}<div class="row">{% endif %}
+        <div class="card col-md-5 p-0 m-3">
+            <img class="card-img-top" src="{{result.album.images.0.url}}" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">{{result.name}}</h4>
+              <div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{result.popularity}}"
+                        aria-valuemin="0" aria-valuemax="100" style="width:{{result.popularity}}%">
+                    Popularity ({{result.popularity}})
+                  </div>
+                </div>
+              </div>
+              <div class="m-2">
+                <audio controls>
+                  <source src="{{result.preview_url}}" type="audio/mp3">
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+              <a href="{{result.external_urls.spotify}}" class="card-link">Open in Spotify</a>
+            </div>
+           <div class="card-footer">
+            <small class="text-muted">Popularity </small>
+          </div>
+        </div>
+    {% if forloop.counter|divisibleby:2 %}</div>{% endif %}
+
+    {% endfor %}
+
+{% endblock content %}
